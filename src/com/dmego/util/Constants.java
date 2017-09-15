@@ -6,6 +6,7 @@ public class Constants {
 	public static final String USER_BEAN = "userBean";
 	public static final String USER_LIST = "userList";
 	public static final String NOTICE_LIST = "noticeList";
+	public static final String POST_LIST = "postList";
 	public static final String OPTION_BEAN = "optionBean";
 	public static final String PRODUCT_BEAN = "productBean";
 	public static final String PRODUCT_BEANS = "productBeans";
@@ -17,6 +18,7 @@ public class Constants {
 	public static final String SEESION_PORDUCT_TYPE_BEANS = "productTypeBeans";
 	public static final String SESSION_UPDATE_PRODUCT_TYPE_BEAN = "updateProductTypeBean";
 	public static final int PAGE_SIZE_10 = 10;
+	public static final int PAGE_SIZE_2 =2; //每一页显示2 列数据
 	public static final int PAGE_SIZE_1 =3; //每一页显示 1 列数据
 	public static final int PAGE_SIZE_5 =5; //每一页显示 3 列数据
 	public static final String SEESION_PORDUCT_TYPE_BEANS2 = "productTypeBeans2";

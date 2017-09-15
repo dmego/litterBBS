@@ -1,6 +1,7 @@
 package com.dmego.servlet.admin;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -9,10 +10,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.alibaba.fastjson.JSON;
 import com.dmego.bean.noticeBean;
 import com.dmego.bean.pagingBean;
+import com.dmego.bean.typeBean;
+import com.dmego.bean.userBean;
 import com.dmego.dao.noticeDao;
+import com.dmego.dao.typeDao;
 import com.dmego.util.Constants;
 import com.dmego.util.StringUtil;
 
@@ -40,9 +46,25 @@ public class noticeServlet extends HttpServlet {
 			delNotice(request,response);
 		}else if("listNotices".equals(method)) {
 			listNotices(request,response);
+		}else if("headGetNotice".equals(method)) {
+			headGetNotice(request,response);
 		}
 	}
-
+	//----------------------------------------------------------------
+		private void headGetNotice(HttpServletRequest request, HttpServletResponse response)
+				throws ServletException, IOException {
+			// TODO Auto-generated method stub
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("text/html; charset=utf-8");
+			noticeDao noticedao = new noticeDao();
+			List<noticeBean> noticeList = noticedao.headGetNotice();
+			PrintWriter out = response.getWriter();
+			out.print(JSON.toJSONString(noticeList));
+			out.flush();
+			out.close();	
+		}		
+	//----------------------------------------------------------------
+	
 	/**
 	 * 查看公告操作
 	 * @param request
@@ -127,7 +149,12 @@ public class noticeServlet extends HttpServlet {
 		
 		noticeDao noticedao = new noticeDao();
 		String updateId = request.getParameter("updateId");
-		int userid = StringUtil.StrToInt(request.getParameter("userid"));
+		
+		//通过user Seesion 对象获取 userid
+		HttpSession session=request.getSession();
+		userBean user = (userBean)session.getAttribute("userBean");
+		int userid = user.getUserid();
+		
 		String content = request.getParameter("content");
 		String title = request.getParameter("title");
 		SimpleDateFormat noticetime1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");

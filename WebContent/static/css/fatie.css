@@ -4,16 +4,14 @@
 			outline: none;
 			list-style:none;
 		}
-		body {
-			background-image:url(../images/bk_main.png);
-		}
+		
 		.center {
 			width:1170px;
 			margin:0 auto;
 /*			height:80px;*/
 		}
 		#header{
-			background-image:url(../images/header.png);
+			
 			height:50px;
 			margin-bottom: 20px;
 			box-shadow:5px 5px 5px #777;

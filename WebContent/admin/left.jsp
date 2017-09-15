@@ -19,9 +19,9 @@
                 <li>
                     <a href="#"><i class="icon-font"></i>常用操作</a>
                     <ul class="sub-menu">
-                        <li><a target="mainAction" href=""><i class="icon-font"></i>帖子管理</a></li>
+                        <li><a target="mainAction" href="${pageContext.request.contextPath }/admin/post/postServlet?method=listPost"><i class="icon-font"></i>帖子管理</a></li>
                         <li><a target="mainAction" href="${pageContext.request.contextPath }/admin/adminServlet?method=listUser"><i class="icon-font"></i>会员管理</a></li>
-                        <li><a target="mainAction" href=""><i class="icon-font"></i>版区管理</a></li>                   
+                        <li><a target="mainAction" href="${pageContext.request.contextPath }/admin/type/typeServlet?method=listType"><i class="icon-font"></i>版区管理</a></li>                   
                         <li><a target="mainAction" href="${pageContext.request.contextPath }/admin/notice/noticeServlet?method=listNotices"><i class="icon-font"></i>公告管理</a></li>
                         <li><a target="mainAction" href=""><i class="icon-font"></i>友情链接</a></li>
                     </ul>

@@ -5,7 +5,7 @@ package com.dmego.bean;
  *	回帖实体类
  */
 public class commentBean {
-	private int commitid;
+	private int commentid;
 	private int postid; //评论的帖子id
 	private int userid; //回帖人id
 	private String content; //回帖内容
@@ -14,12 +14,12 @@ public class commentBean {
 	
 	public commentBean() {}
 
-	public int getCommitid() {
-		return commitid;
+	public int getCommentid() {
+		return commentid;
 	}
 
-	public void setCommitid(int commitid) {
-		this.commitid = commitid;
+	public void setCommentid(int commentid) {
+		this.commentid = commentid;
 	}
 
 	public int getPostid() {
@@ -64,7 +64,7 @@ public class commentBean {
 
 	@Override
 	public String toString() {
-		return "commitBean [commitid=" + commitid + ", postid=" + postid + ", userid=" + userid + ", content=" + content
+		return "commitBean [commitid=" + commentid + ", postid=" + postid + ", userid=" + userid + ", content=" + content
 				+ ", comtime=" + comtime + ", agree=" + agree + "]";
 	}
 	

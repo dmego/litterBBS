@@ -46,6 +46,35 @@ public class noticeDao {
 		}
 		return noticeList;
 	}
+	
+	// 首页获取部分公告信息
+		public List<noticeBean> headGetNotice() {
+			String sql = "select * from notice order by noticeid DESC limit 0,3";
+			Connection conn = null;
+			Statement stat = null;
+			ResultSet rs = null;
+			List<noticeBean> noticeList = new ArrayList<noticeBean>();
+			try {
+				conn = DBUtils.getConn();
+				stat = conn.createStatement();
+				rs = stat.executeQuery(sql);
+				while (rs.next()) {
+					int noticeid = rs.getInt("noticeid");
+					int userid = rs.getInt("userid");
+					String content = rs.getString("content");
+					String title = rs.getString("title");
+					String noticetime = rs.getString("noticetime");
+					noticeBean notice = new noticeBean(noticeid, userid, content, title, noticetime);
+					noticeList.add(notice);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				DBUtils.close(rs, stat, conn);
+			}
+			return noticeList;
+		}
+	
 
 	// 新增公告
 	public void addNotice(noticeBean notice) {

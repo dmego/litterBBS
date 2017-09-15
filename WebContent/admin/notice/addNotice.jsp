@@ -17,6 +17,14 @@
 	src="${pageContext.request.contextPath }/static/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/ckeditor/ckeditor.js"></script>
+<style>  
+.col-center-block {  
+    float: none;  
+    display: block;  
+    margin-left: auto;  
+    margin-right: auto;  
+}  
+</style> 
 </head>
 <body>
 	<div class="crumb-wrap">
@@ -27,7 +35,7 @@
 	</div>
 	<div class="container" style="margin-top: 80px">
 		<div class="row">
-			<div class="col-md-9">
+			<div class="col-md-9 col-center-block">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<c:if test="${updateBean!=null}">

@@ -1,3 +1,6 @@
+<%@ page import="com.dmego.servlet.admin.typeServlet" %>
+<%@ page import="com.dmego.dao.typeDao" %>
+<%@ page import="com.dmego.bean.typeBean" %>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -8,6 +11,25 @@
 		<script src="${pageContext.request.contextPath }/static/js/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath }/static/js/bootstrap.min.js"></script>
 	</head>
+	<script type="text/javascript">
+	function getType(){		
+			//ajax请求
+			$.post("admin/type/typeServlet",{
+				method: "headGetType"
+			},
+				function(data){
+					if(data != null && data.length > 0){
+						var str="";
+	        			for(var type in data){
+	        			str+="<li><a href='checkPostByUrl?bid="+data[type].typeid+"'>"+data[type].name+"</a></li>";
+	        			str+="<li class='divider'></li>";
+	        			}
+	        			$("#boardlist").append(str);
+					}
+				},"json");
+		   }
+				
+</script>
 	<body>
 		<nav class="navbar navbar-inverse" role="navigation">
 			<div class="navbar-header">
@@ -18,15 +40,22 @@
 					<li>
 						<a href="index.jsp">首页</a>
 					</li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> 精选板块 <b class="caret"></b>
+					<li class="dropdown" >
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" > 精选板块 <b class="caret"></b>
 						</a>
-						<ul class="dropdown-menu">
-							<li class="divider"></li>
-							<li>
-								<a href=""></a>
-							</li>
+						<ul class="dropdown-menu" id="boardlist" >
+							<%
+								typeDao typedao = new typeDao();
+								List<typeBean> typeList = typedao.getAllType();
+								for(int i = 0; i < typeList.size();i++){
+							%>
+							<li><a href="checkPostByUrl?bid=<%=typeList.get(i).getTypeid()%>"><%=typeList.get(i).getName()%></a></li>
+							<li class='divider'></li>
+							<%		
+								}
+							%>						
 						</ul>
+						
 					</li>
 					<li>
 						<a href="">论坛热帖</a>
@@ -43,10 +72,10 @@
 			<c:if test="${sessionScope.userBean == null}">
 				<ul class="nav navbar-nav navbar-right user">
 					<li>
-						<a href="login.jsp">登陆</a>
+						<a href="${pageContext.request.contextPath }/front/login.jsp">登陆</a>
 					</li>
 					<li>
-						<a href="regist.jsp">注册</a>
+						<a href="${pageContext.request.contextPath }/front/regist.jsp">注册</a>
 					</li>
 				</ul>
 				<p class="navbar-text navbar-right">尊敬的游客您好！</p>
@@ -89,15 +118,6 @@
                 </ul>
                  <p class="navbar-text navbar-right">尊敬的管理员您好！</p>
 			</c:if>
-			
-			<form class="navbar-form navbar-right" role="search" action="">
-				<div class="input-group">
-					<input type="text" class="form-control" name="keywords" placeholder="search"> 
-					<span class="input-group-addon">
-						<span class="glyphicon glyphicon-search"></span> 
-					</span>
-				</div>
-			</form>
 		</nav>
 	</body>
 </html>

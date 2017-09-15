@@ -140,6 +140,7 @@ public class adminServlet extends HttpServlet {
 		userDao userdao = new userDao();
 		int userid = StringUtil.StrToInt(request.getParameter("userid"));
 		int level = StringUtil.StrToInt(request.getParameter("level"));
+		
 		System.out.println("level="+level);
 		if(level > 2) {//级别太高，没有权限进行修改操作
 			response.sendRedirect(request.getContextPath()+"/admin/adminServlet?method=listUser&status=1");	
