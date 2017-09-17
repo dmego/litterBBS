@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://localhost:8080/3-28/util" prefix="util"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -7,6 +8,8 @@
 <link
 	href="${pageContext.request.contextPath}/static/css/post-detail.css"
 	rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath }/static/bootstrap-3.3.5-dist/css/bootstrap.css" />
 <link
 	href="${pageContext.request.contextPath}/static/ueditor/themes/default/css/ueditor.css"
 	type="text/css" rel="stylesheet">
@@ -61,7 +64,6 @@
 						</tr>
 					</table>
 				</div>
-
 				<div class="col-md-8 post-content" id="right">
 					<div class="post-title">
 						<h2 style="margin-left: 20px; color: black">[${postBean.tychname}]${postBean.title}</h2>
@@ -85,64 +87,101 @@
 		</div>
 
 		<!-- 回复内容 -->
-
-		<div class="container">
-			<div class="row" style="margin-top: 5px">
-				<div class="col-md-1 reply-border"></div>
-				<div class="col-md-2 reply-head">
-					<img alt="" class="img-responsive img-circle"
-						src=" ../static/images/face/1.png"
-						style="margin: 1px 1px; width: 120px; height: 120px; margin: 30px auto;" />
-
-					<span class="user-info"> <span class="badge"
-						style="background: #f1c40f; margin-top: 5px">姓名</span> :<span
-						class="badge" style="background: #f1c40f; margin-top: 5px">XXXX</span>
-					</span><br /> <span class="user-info"> <span class="badge"
-						style="background: #2ecc71; margin-top: 5px">性别</span> :<span
-						class="badge" style="background: #2ecc71; margin-top: 5px">XX</span>
-					</span><br /> <span class="user-info"> <span class="badge"
-						style="background: #ff6927; margin-top: 5px">论坛等级</span>: <span
-						class="badge" style="background: #ff6927; margin-top: 5px">LV
-							3</span>
-					</span> <br>
-
-
-				</div>
-				<div class="col-md-8 reply-content">
-					<div class="reply-time">
-						<span style="color: gray">回复于:2017-09-15 15:29:32</span>
+		<c:forEach items="${commentList }" var="item" varStatus="status">
+			<div class="container">
+				<div class="row" style="margin-top: 5px">
+					<div class="col-md-1 reply-border"></div>
+					<div class="col-md-2 reply-head">
+						<img alt="" class="img-responsive img-circle"
+							src="${item.usericon}"
+							style="margin: 1px 1px; width: 120px; height: 120px; margin: 30px auto;" />
+						<table align="center">
+							<tr>
+								<span class="user-info">
+									<td><span class="badge"
+										style="background: #f1c40f; margin-top: 5px">作者</span></td>
+									<td><span class="badge"
+										style="background: #f1c40f; margin-top: 5px">${item.username}</span></td>
+								</span>
+							</tr>
+							<tr>
+								<span class="user-info">
+									<td><span class="badge"
+										style="background: #2ecc71; margin-top: 5px">性别</span></td>
+									<td><span class="badge"
+										style="background: #2ecc71; margin-top: 5px">${item.sex}</span>
+								</td>
+								</span>
+							</tr>
+							<tr>
+								<span class="user-info">
+									<td><span class="badge"
+										style="background: #ff6927; margin-top: 5px">等级</span></td>
+									<td><span class="badge"
+										style="background: #ff6927; margin-top: 5px">LV
+											${item.level}</span></td>
+								</span>
+							</tr>
+						</table>
 					</div>
-					<div style="margin: 20px;">回复的内容</div>
-					<span class="badge"
-						style="float: right; margin-right: 10px; background: #ff6927; width: 50px;">沙发</span>
-
+					<div class="col-md-8 reply-content">
+						<div class="reply-time">
+							<span style="color: gray">回复于:${item.comtime}</span>
+						</div>
+						<div style="margin: 20px;">${item.content}</div>
+						<c:if test="${item.flood == 1}">
+							<span class="badge"
+								style="float: right; margin-right: 10px; background: #ff6927; width: 50px;">沙发</span>
+						</c:if>
+						<c:if test="${item.flood == 2}">
+							<span class="badge"
+								style="float: right; margin-right: 10px; background: #ff5959; width: 50px;">板凳</span>
+						</c:if>
+						<c:if test="${item.flood == 3}">
+							<span class="badge"
+								style="float: right; margin-right: 10px; background: #4b9ded; width: 50px;">地板</span>
+						</c:if>
+						<c:if test="${item.flood > 3}">
+							<span class="badge"
+								style="float: right; margin-right: 10px; background: #4b9ded; width: 50px;">第${item.flood}楼</span>
+						</c:if>
+					</div>
+					<div class="col-md-1 reply-border"></div>
 				</div>
-				<div class="col-md-1 reply-border"></div>
-
 			</div>
+			
+		</c:forEach>
+		<div class="row-fluid" align="center">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<div>
+					<util:page pagingBean="${pagingBean }" />
+				</div>
+			</div>
+			<div class="col-md-3"></div>
 		</div>
-		<br>
-
-
-		<div style="height: 200px; margin: 50px auto; width: 800px; clear: both;">
-			<form action="" method="post">
+		<div
+			style="height: 200px; margin: 50px auto; width: 800px; clear: both;">
+			<form
+				action="${pageContext.request.contextPath}/front/postFServlet?method=reply&userid=${userBean.userid }&postid=${postBean.postid}"
+				method="post">
 				<div class="sendcomment">
 					<p>
 						<span>发表评论</span><a href="#">回到顶部^</a>
 					</p>
 				</div>
 				<textarea name="content" id="myEditor"
-					style="width: 900px; height: 120px;">${updateBean.content }</textarea>
+					style="width: 900px; height: 120px;"></textarea>
 				<div style="height: 10px;"></div>
 				<div class="col-md-2">
 					<input class="btn btn-success btn-outline btn-block" type="submit"
 						value="跟帖" />
 				</div>
-			</form>			
+			</form>
 		</div>
 		<div style="height: 120px; clear: both"></div>
-		<jsp:include page="/pages/foot.jsp"></jsp:include>		
-	</div>	
+		<jsp:include page="/pages/foot.jsp"></jsp:include>
+	</div>
 </body>
 <script type="text/javascript">
 	$("#right").outerHeight()

@@ -19,7 +19,7 @@ public class Constants {
 	public static final String SESSION_UPDATE_PRODUCT_TYPE_BEAN = "updateProductTypeBean";
 	public static final int PAGE_SIZE_10 = 10;
 	public static final int PAGE_SIZE_2 =2; //每一页显示2 列数据
-	public static final int PAGE_SIZE_1 =3; //每一页显示 1 列数据
+	public static final int PAGE_SIZE_3 =3; //每一页显示 1 列数据
 	public static final int PAGE_SIZE_5 =5; //每一页显示 3 列数据
 	public static final String SEESION_PORDUCT_TYPE_BEANS2 = "productTypeBeans2";
 	public static final String SEESION_PORDUCT_TYPE_PROPERTY_BEANS = "productTypePropertyBeans";

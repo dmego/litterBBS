@@ -88,7 +88,7 @@
 	                            ${userBean.username}<b class="caret"></b>
 	                        </a>
 	                        <ul class="dropdown-menu">	                            
-	                            <li><a href="">我的信息</a></li>
+	                            <li><a href="front/personal.jsp">我的信息</a></li>
 	                            <li><a href="">消息中心</a></li>
 	                            <li class="divider"></li>
 	                            <li><a href="${pageContext.request.contextPath}/front/userServlet?method=logout&&status=1">退出登陆</a></li>

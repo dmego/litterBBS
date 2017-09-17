@@ -29,7 +29,7 @@
 
 			<div class="col-md-2 post-head" id="left">
 				<img alt="" class="img-responsive img-circle"
-					src="${postuser.usericon}"
+					src="${noticeuser.usericon}"
 					style="margin: 1px 1px; width: 120px; height: 120px; margin: 30px auto;" />
 				<table align="center">
 					<tr>
@@ -37,7 +37,7 @@
 							<td><span class="badge"
 								style="background: #f1c40f; margin-top: 5px">作者</span></td>
 							<td><span class="badge"
-								style="background: #f1c40f; margin-top: 5px">${postuser.username}</span></td>
+								style="background: #f1c40f; margin-top: 5px">${noticeuser.username}</span></td>
 						</span>
 					</tr>
 					<tr>
@@ -45,7 +45,7 @@
 							<td><span class="badge"
 								style="background: #2ecc71; margin-top: 5px">性别</span></td>
 							<td><span class="badge"
-								style="background: #2ecc71; margin-top: 5px">${postuser.sex}</span>
+								style="background: #2ecc71; margin-top: 5px">${noticeuser.sex}</span>
 						</td>
 						</span>
 					</tr>
@@ -55,7 +55,7 @@
 								style="background: #ff6927; margin-top: 5px">等级</span></td>
 							<td><span class="badge"
 								style="background: #ff6927; margin-top: 5px">LV
-									${postuser.level}</span></td>
+									${noticeuser.level}</span></td>
 						</span>
 					</tr>
 				</table>

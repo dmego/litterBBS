@@ -10,9 +10,95 @@ public class commentBean {
 	private int userid; //回帖人id
 	private String content; //回帖内容
 	private String comtime; //回帖时间
-	private int agree; //赞个数
+	private int flood; //第几楼
+	private String username;	
+	private String sex;
+	private String usericon; //用户头像
+	private int level; //用户级别
+	public commentBean(int postid,int userid,String content,String comtime,int flood) {
+		this.postid = postid;
+		this.userid = userid;
+		this.content = content;
+		this.comtime = comtime;
+		this.flood = flood;
+	}
+
 	
 	public commentBean() {}
+	
+	
+	
+	public String getUsername() {
+		return username;
+	}
+
+
+
+
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+
+
+
+
+	public String getSex() {
+		return sex;
+	}
+
+
+
+
+
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+
+
+
+
+
+	public String getUsericon() {
+		return usericon;
+	}
+
+
+
+
+
+
+	public void setUsericon(String usericon) {
+		this.usericon = usericon;
+	}
+
+
+
+
+
+
+	public int getLevel() {
+		return level;
+	}
+
+
+
+
+
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+
+
+
+
 
 	public int getCommentid() {
 		return commentid;
@@ -54,19 +140,23 @@ public class commentBean {
 		this.comtime = comtime;
 	}
 
-	public int getAgree() {
-		return agree;
+	public int getFlood() {
+		return flood;
 	}
 
-	public void setAgree(int agree) {
-		this.agree = agree;
+	public void setFlood(int flood) {
+		this.flood = flood;
 	}
 
 	@Override
 	public String toString() {
-		return "commitBean [commitid=" + commentid + ", postid=" + postid + ", userid=" + userid + ", content=" + content
-				+ ", comtime=" + comtime + ", agree=" + agree + "]";
+		return "commentBean [commentid=" + commentid + ", postid=" + postid + ", userid=" + userid + ", content="
+				+ content + ", comtime=" + comtime + ", flood=" + flood + "]";
 	}
+
+	
+
+	
 	
 	
 }

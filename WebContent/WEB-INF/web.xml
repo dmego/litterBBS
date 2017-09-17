@@ -17,7 +17,14 @@
     <servlet-name>postFServlet</servlet-name>
     <url-pattern>/front/postFServlet</url-pattern>
   </servlet-mapping> 
-  
+  <servlet>
+    <servlet-name>noticeFServlet</servlet-name>
+    <servlet-class>com.dmego.servlet.front.noticeFServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>noticeFServlet</servlet-name>
+    <url-pattern>/front/noticeFServlet</url-pattern>
+  </servlet-mapping> 
   
   
   

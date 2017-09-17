@@ -15,13 +15,12 @@ import javax.servlet.http.HttpSession;
 
 import com.alibaba.fastjson.JSON;
 import com.dmego.bean.commentBean;
-import com.dmego.bean.noticeBean;
 import com.dmego.bean.pagingBean;
 import com.dmego.bean.postBean;
 import com.dmego.bean.typeBean;
 import com.dmego.bean.typeChildBean;
 import com.dmego.bean.userBean;
-import com.dmego.dao.noticeDao;
+import com.dmego.dao.commentDao;
 import com.dmego.dao.postDao;
 import com.dmego.dao.userDao;
 import com.dmego.dao.typeChildDao;
@@ -61,11 +60,38 @@ public class postFServlet extends HttpServlet {
 			headInitPost(request, response);
 		} else if ("comment".equals(method)) {
 			comment(request, response);
+		}else if("reply".equals(method)) {
+			reply(request,response);
 		}
 	}
 
+	
+	//回帖操作
+	private void reply(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException  {
+		// TODO Auto-generated method stub
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		int postid = StringUtil.StrToInt(request.getParameter("postid"));
+		int userid = StringUtil.StrToInt(request.getParameter("userid"));
+		String content = request.getParameter("content");
+		SimpleDateFormat comtime1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String comtime = comtime1.format(new Date());
+		commentDao commentdao = new commentDao();
+		postDao postdao = new postDao();
+		postdao.addReplyNum(postid);
+		int replyNum = postdao.getReplyNum(postid);
+		commentBean comment = new commentBean(postid, userid, content, comtime, replyNum);
+		commentdao.addComment(comment);
+		response.sendRedirect(request.getContextPath()+"/front/postFServlet?method=comment&postid="+postid);
+		
+		
+	}
+
+
+
 	/**
-	 * 查看帖子详情（包括回帖）
+	 * 查看帖子详情
 	 * 
 	 * @param request
 	 * @param response
@@ -87,7 +113,29 @@ public class postFServlet extends HttpServlet {
 		userBean postuser = userdao.getUserById(userid);		
 		String tychname = tychdao.getTypeChildById(tychid).getName();	
 		postBean.setTychname(tychname);
-
+		commentDao commentdao = new commentDao();
+		//初始化当前页数
+		int currentPage =StringUtil.StrToInt(request.getParameter("currentPage")) ;
+		int countSize = commentdao.getCountByPost(postid);
+		pagingBean pagingBean = new pagingBean(currentPage, countSize,Constants.PAGE_SIZE_3);
+		List<commentBean> commentList = commentdao.getListPage(postid,currentPage*Constants.PAGE_SIZE_3, Constants.PAGE_SIZE_3);
+		pagingBean.setPrefixUrl(request.getContextPath()+"/front/postFServlet?method=comment&postid="+postid);
+		pagingBean.setAnd(true);
+		for(int i = 0; i < commentList.size();i++) {
+			int id = commentList.get(i).getUserid();
+			userBean user = userdao.getUserById(id);
+			String username = user.getUsername();
+			commentList.get(i).setUsername(username);
+			String usericon = user.getUsericon();
+			commentList.get(i).setUsericon(usericon);
+			String sex = user.getSex();
+			commentList.get(i).setSex(sex);
+			int level = user.getLevel();
+			commentList.get(i).setLevel(level);
+		}
+		
+		request.setAttribute("commentList",commentList);
+		request.setAttribute("pagingBean", pagingBean);
 		request.setAttribute("postuser", postuser);
 		request.setAttribute("postBean", postBean);
 		request.getRequestDispatcher("comment.jsp").forward(request, response);
@@ -130,30 +178,26 @@ public class postFServlet extends HttpServlet {
 		// 获取总数量
 		int countSize = postdao.getCount();
 		// 初始化一个分页bean
-		pagingBean pagingBean = new pagingBean(currentPage, countSize, Constants.PAGE_SIZE_2);
-		List<postBean> postList = postdao.getListPage(currentPage * Constants.PAGE_SIZE_2, Constants.PAGE_SIZE_2);
+		pagingBean pagingBean = new pagingBean(currentPage, countSize, Constants.PAGE_SIZE_5);
+		List<postBean> morePostList = postdao.getListPage(currentPage * Constants.PAGE_SIZE_5, Constants.PAGE_SIZE_5);
 		// 通过for 循环为 发布人 和 所属版区 赋值
 		userDao userdao = new userDao();
 		typeChildDao tychdao = new typeChildDao();
-		for (int i = 0; i < postList.size(); i++) {
-			int userid = postList.get(i).getUserid();
-			int tychid = postList.get(i).getTychid();
+		for (int i = 0; i < morePostList.size(); i++) {
+			int userid = morePostList.get(i).getUserid();
+			int tychid = morePostList.get(i).getTychid();
 			String username = userdao.getUserById(userid).getUsername();
 			String tychname = tychdao.getTypeChildById(tychid).getName();
-			postList.get(i).setUsername(username);
-			postList.get(i).setTychname(tychname);
+			String usericon = userdao.getUserById(userid).getUsericon();
+			morePostList.get(i).setUsericon(usericon);
+			morePostList.get(i).setUsername(username);
+			morePostList.get(i).setTychname(tychname);
 		}
-
-		pagingBean.setPrefixUrl(request.getContextPath() + "/admin/post/postServlet?method=listPost");
+		pagingBean.setPrefixUrl(request.getContextPath() + "/front/postFServlet?method=listPost");
 		pagingBean.setAnd(true);
-		request.setAttribute(Constants.POST_LIST, postList);
-		request.setAttribute("pagingBean", pagingBean);
-		if (status != null) { // 请求转发到listPost页面
-			request.getRequestDispatcher("listPost.jsp?status=" + status).forward(request, response);
-		} else {
-			request.getRequestDispatcher("listPost.jsp").forward(request, response);
-		}
-
+		request.setAttribute("morePostList", morePostList);
+		request.setAttribute("pagingBean", pagingBean);		
+		request.getRequestDispatcher("morePost.jsp").forward(request, response);
 	}
 
 	/**

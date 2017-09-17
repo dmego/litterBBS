@@ -19,6 +19,7 @@ import com.dmego.bean.typeBean;
 import com.dmego.bean.userBean;
 import com.dmego.dao.noticeDao;
 import com.dmego.dao.typeDao;
+import com.dmego.dao.userDao;
 import com.dmego.util.Constants;
 import com.dmego.util.StringUtil;
 
@@ -44,56 +45,58 @@ public class noticeFServlet extends HttpServlet {
 			updNotice(request,response);
 		}else if("delNotice".equals(method)) {
 			delNotice(request,response);
-		}else if("listNotices".equals(method)) {
-			listNotices(request,response);
-		}else if("headGetNotice".equals(method)) {
-			headGetNotice(request,response);
+		}else if("listNotice".equals(method)) {
+			listNotice(request,response);
+		}else if("showNotice".equals(method)) {
+			showNotice(request,response);
 		}
 	}
-	//----------------------------------------------------------------
-		private void headGetNotice(HttpServletRequest request, HttpServletResponse response)
-				throws ServletException, IOException {
-			// TODO Auto-generated method stub
-			request.setCharacterEncoding("utf-8");
-			response.setContentType("text/html; charset=utf-8");
-			noticeDao noticedao = new noticeDao();
-			List<noticeBean> noticeList = noticedao.headGetNotice();
-			PrintWriter out = response.getWriter();
-			out.print(JSON.toJSONString(noticeList));
-			out.flush();
-			out.close();	
-		}		
-	//----------------------------------------------------------------
+		
 	
+	//公告详细展示页面
+	private void showNotice(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=urf-8");		
+		noticeDao noticedao = new noticeDao();
+		int noticeid = StringUtil.StrToInt(request.getParameter("noticeid"));
+		noticeBean noticeBean = noticedao.getNoticeById(noticeid);
+		int userid = noticeBean.getUserid();
+		userDao userdao = new userDao();
+		userBean noticeuser = userdao.getUserById(userid);
+		request.setAttribute("noticeuser", noticeuser);
+		request.setAttribute("noticeBean", noticeBean);
+		request.getRequestDispatcher("notice.jsp").forward(request, response);
+	}
+
+
+
 	/**
 	 * 查看公告操作
 	 * @param request
 	 * @param response
 	 */
-	private void listNotices(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+	private void listNotice(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//解决乱码问题
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=urf-8");		
-		noticeDao noticedao = new noticeDao();
-		String status = request.getParameter("status");
-		//初始化当前页数
-		int currentPage =StringUtil.StrToInt(request.getParameter("currentPage")) ;
-		//获取总数量
-		int countSize = noticedao.getCount();
-		//初始化一个分页bean
-		pagingBean pagingBean = new pagingBean(currentPage, countSize,Constants.PAGE_SIZE_5);
-		List<noticeBean> noticeList = noticedao.getListPage(currentPage*Constants.PAGE_SIZE_5, Constants.PAGE_SIZE_5);
-		pagingBean.setPrefixUrl(request.getContextPath()+"/admin/notice/noticeServlet?method=listNotices");
-		pagingBean.setAnd(true);
-		request.setAttribute(Constants.NOTICE_LIST,noticeList);
-		request.setAttribute("pagingBean", pagingBean);
-		if(status != null){ //请求转发到listNotices页面
-			request.getRequestDispatcher("listNotices.jsp?status="+status).forward(request, response);
-		}else{
-			request.getRequestDispatcher("listNotices.jsp").forward(request, response);
+		noticeDao noticedao = new noticeDao();						
+		List<noticeBean> moreNoticeList = noticedao.ListNotice();
+		userDao userdao = new userDao();
+		for(int i = 0; i < moreNoticeList.size();i++) {
+			int userid = moreNoticeList.get(i).getUserid();
+			userBean user = userdao.getUserById(userid);
+			String usericon = user.getUsericon();
+			String username = user.getUsername();
+			moreNoticeList.get(i).setUsername(username);
+			moreNoticeList.get(i).setUsericon(usericon);
 		}
 		
+		request.setAttribute("moreNoticeList", moreNoticeList);
+		request.getRequestDispatcher("moreNotice.jsp").forward(request, response);		
 	}
 
 	/**

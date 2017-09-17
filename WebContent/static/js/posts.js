@@ -497,26 +497,6 @@ $(function(){
 	    	});
 	    }
 	});	
-	//搜索框中的下拉菜单ajax获取子版块列表
-	$("select[name='boardlist']").change(function(){
-		$("select[name='childboardId'] option").not(":first").remove();
-		var parentBoardId=$(this).val();
-		$.ajax({//获取搜索框中的板块列表
-			type:"post",
-			url:"getChildBoardListByParentBoardId?parentboardId="+parentBoardId,
-			dataType:"json",
-	        success:function(data){
-	               	$.each(data.childBoardList,function(idnex,board){   
-	               		//alert(board.name)
-	        			var str;
-	        			str="<option value='"+board.id+"'>";
-	        			str+=board.name;
-	        			str+="</option>"
-	        			$("select[name='childboardId']").append(str);
-	        			
-	        	});
-	        }
-		});	
-	})
+	
 })
 

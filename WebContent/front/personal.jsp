@@ -80,7 +80,7 @@
 	            <div class="user-left-n clearfix">
 	               <h6> <i class="fa fa-address-card"></i>详细信息</h6>
 	                <a class="user-headimg f">
-	                <img src="../${userBean.usericon }"></a>
+	                <img src="${userBean.usericon }"></a>
 	                <div class="user-name f">
 	                    <h4>${userBean.username }</h4>
 	                    <p>${userBean.nickname }</p>

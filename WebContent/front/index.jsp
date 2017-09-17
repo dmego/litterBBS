@@ -42,7 +42,7 @@
 						if(data != null && data.length > 0) {
 							var str = "";
 							for(var notice in data) {
-								str += "<a class='list-group-item' href='" +
+								str += "<a class='list-group-item' href='${pageContext.request.contextPath}/front/noticeFServlet?method=showNotice&noticeid=" +
 									data[notice].noticeid +
 									"'>" +
 									data[notice].title + "</a>";
@@ -65,7 +65,7 @@
 						<ul class="list-group">
 							<div class="list-group-item active">
 								论坛新帖
-								<a href="${pageContext.request.contextPath}/front/" style="float: right; color: white">更多>></a>
+								<a href="${pageContext.request.contextPath}/front/postFServlet?method=listPost" style="float: right; color: white">更多>></a>
 							</div>
 							<div class="tab-pane active" id="home">
 								<section id="LastestPostList" class="widget bg-white post-comments">
@@ -116,7 +116,7 @@
 						<ul class="list-group" id="noticelist">
 							<div class="list-group-item active">
 								论坛公告
-								<a href="${pageContext.request.contextPath}/front/" style="float: right; color: white">更多>></a>
+								<a href="${pageContext.request.contextPath}/front/noticeFServlet?method=listNotice" style="float: right; color: white">更多>></a>
 							</div>
 						</ul>
 						<c:if test="${sessionScope.userBean != null}">

@@ -10,6 +10,8 @@ public class noticeBean {
 	private String content; //公告内容
 	private String title; //公告标题
 	private String noticetime; //发起公告的时间
+	private String usericon; //发起管理员的头像
+	private String username; //发起管理员的姓名
 	
 	public noticeBean(int noticeid,int userid,String content,String title,String noticetime) {
 		this.noticeid = noticeid;
@@ -18,6 +20,7 @@ public class noticeBean {
 		this.title = title;
 		this.noticetime = noticetime;
 	}
+	
 	public noticeBean(int userid,String content,String title,String noticetime) {		
 		this.userid = userid;
 		this.content = content;
@@ -28,7 +31,25 @@ public class noticeBean {
 	public noticeBean() {
 		
 	}
+		
 	
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getUsericon() {
+		return usericon;
+	}
+
+	public void setUsericon(String usericon) {
+		this.usericon = usericon;
+	}
+
 	public int getNoticeid() {
 		return noticeid;
 	}

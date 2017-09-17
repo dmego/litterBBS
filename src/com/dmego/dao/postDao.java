@@ -147,6 +147,28 @@ public class postDao {
 			DBUtils.close(ps, conn);
 		}
 	}
+	//获取一个贴子的回帖数
+		public int getReplyNum(int postid) {
+			String sql = "select replynum from post where postid=?";
+			Connection conn = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			int replynum = 0;
+			try {
+				conn = DBUtils.getConn();
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, postid);
+				rs = ps.executeQuery();
+				if(rs.next()) {
+					replynum = rs.getInt("replynum");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				DBUtils.close(ps, conn);
+			}
+			return replynum;
+		}
 	
 	//通过ID获取帖子	
 	public postBean getPostById(int postid) {
