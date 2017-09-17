@@ -84,8 +84,8 @@
 			</div>
 		</form>
 		</div>
-		<div class="bottom" style="position: absolute; bottom: 0px; margin-top: 20px; background-color: rgba(0, 0, 0, 0.8); width: 100%; height: 100px; color: darkgray">
-			<div style="width: 400px; padding-top: 35px; padding-left: 40px; padding-right: 40px; margin: auto;">
+		<div class="bottom" style="position: absolute; bottom: 0px; margin-top: 20px; background-color: rgba(0, 0, 0, 0.8); width: 100%; height: 75px; color: darkgray">
+			<div style="width: 400px; padding-top: 15px; padding-left: 40px; padding-right: 40px; margin: auto;">
 				<div align="center">
 				<span>版本1.0</span>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;  
 				<span><a href="#">关于</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  

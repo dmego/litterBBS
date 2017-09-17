@@ -49,7 +49,7 @@ public class noticeDao {
 	
 	// 首页获取部分公告信息
 		public List<noticeBean> headGetNotice() {
-			String sql = "select * from notice order by noticeid DESC limit 0,3";
+			String sql = "select * from notice order by noticeid DESC limit 0,2";
 			Connection conn = null;
 			Statement stat = null;
 			ResultSet rs = null;

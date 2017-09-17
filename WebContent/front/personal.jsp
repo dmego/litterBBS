@@ -73,35 +73,34 @@
     <script type="text/javascript" src="${pageContext.request.contextPath }/static/js/search.js"></script>
   <body>
     <jsp:include page="../pages/header.jsp"></jsp:include>
-	<div class="container user">
+	<div class="container" >
 	    <div class="position clearfix"><a href="index.jsp">首页</a> / 我的信息</div>
 	    <div class="user-cont clearfix">
 	        <div class="col-md-4 user-left">
 	            <div class="user-left-n clearfix">
 	               <h6> <i class="fa fa-address-card"></i>详细信息</h6>
-	                <a class="user-headimg f"><img src="../img/default_icon.jpg"></a>
+	                <a class="user-headimg f">
+	                <img src="../${userBean.usericon }"></a>
 	                <div class="user-name f">
-	                    <h4>姓名</h4>
-	                    <p>个性签名</p>
+	                    <h4>${userBean.username }</h4>
+	                    <p>${userBean.nickname }</p>
 	                </div>
 	            </div>
 	            <div class="user-left-n clearfix">
 	                <ul class="list-group">
 	                    <li class="list-group-item" style="text-align: center;">
-	                        <i class="fa fa-user-secret"></i>&nbsp;Level：
+	                        <i class="fa fa-user-secret"></i>&nbsp;Level：${userBean.level }
 	                    </li>
-	                    <li class="list-group-item" style="text-align: center;" href="">
-	                       
-	                        <i class="fa fa-transgender"></i>&nbsp;性别:
+	                    <li class="list-group-item" style="text-align: center;">	                       
+	                        <i class="fa fa-transgender"></i>&nbsp;性别：${userBean.sex }
 	                    </li>	               
-	                    <li class="list-group-item" href="" style="text-align: center;">
+	                    <li class="list-group-item" style="text-align: center;">
 	                        
-	                        <i class="fa fa-clock-o"></i>&nbsp;注册日期：
+	                        <i class="fa fa-heartbeat"></i>&nbsp;生日：${userBean.birthday }
 	                    </li>	                	
-							<li class="list-group-item" href="" style="text-align: center;">
-								&nbsp;安全性弱，请<a href="SafetyCode.jsp">设置安全码</a>
-							</li>
-						
+						<li class="list-group-item"  style="text-align: center;">
+							<i class="fa fa-clock-o"></i>&nbsp;注册日期：${userBean.regtime }
+						</li>					
 					</ul>
 					<div class="bodys">
 						<a name="detailSearch" class="btn btn-info"><i class="fa fa-cogs"></i>&nbsp;修改个人资料</a>
@@ -110,106 +109,26 @@
 	       	</div>
 	        <div class="col-md-8 user-right">
 	            <div class="user-right-n clearfix">
-	                <ul id="right-tab" class="nav nav-tabs">
+	                <ul id="right-tab" class="nav nav-tabs">	                     
 	                    <li role="presentation" class="active">
 	                        <a href="#myArticle" id="home-tab1" data-toggle="tab"><i class="fa fa-book"></i>&nbsp;我的帖子</a>
-	                    </li>
-	                    <li role="presentation">
-	                        <a href="#myCollection" id="home-tab2" data-toggle="tab"><i class="fa fa-commenting-o"></i>&nbsp;我的留言板</a>
-	                    </li>	 
+	                    </li>                  	 
 	                    <li role="presentation">
 	                        <a href="#myFriends" id="home-tab3" data-toggle="tab"><i class="fa fa-group"></i>&nbsp;我的好友</a>
 	                    </li>	    
 	                </ul>
-	
+	                	
 	                <div class="user-right-n clearfix tab-content">
 	                <!-- 遍历展示Ta的帖子列表 -->
+	                
 	                  	<div role="tabpanel" class="tab-pane active" id="myArticle">
 	                  		<input type="hidden" name="publisherMail" value="<s:property value="#request.checkedUser.mailAddress"/>">
-		                  <s:if test='#request.postBean.list.size()==0'>
-	                    	  <h4>未发表任何帖子。</h4>         
-	                    </s:if>
-	                    <s:else>	                	
-	                    	<s:iterator value="#request.postBean.list" var="post">
-		                    	<div class="art-row">                     
-		                            <h4><a href="serchPost?pid=${post.id}" class="title">${post.title} </a></h4>	                          
-		                            <span class="label label-default"><a href="checkZiPostByUrl?cid=${post.childboardId.id }">${post.childboardId.name}</a></span>
-		                             <a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=<s:property value="publisherMail.mailAddress"/>"  class="author">
-		                             <i class="fa fa-user"></i>&nbsp;<span>${post.publisherMail.username}</span>
-		                             </a>
-		                             <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishTime" format="yyyy-MM-dd HH:mm" /></span></a> 	 
-		                           <div name="hoverbutton" style="float:right;display: none">
-			                      	  	<a  onclick="sqZhiding(this)" name="${post.id }" class="hoverbutton tembutton"><i class="fa fa-envelope-o"></i> 申请置顶</a>			                      	  	
-			                      	 <a  href="serchPost1?pid=${post.id}" name="${post.id }" class="hoverbutton tembutton"><i class="fa fa-legal"></i>修改 </a>
-			                      	 <a onclick="deletePost(this)" name="${post.id }" class="hoverbutton redbutton"><i class="fa  fa-times"></i> 删除</a>
-			                     </div>    
-			                     	                     	                            
-		                        </div>
-			              
-	                     	</s:iterator>	                     	                     			                 
-		                     <ul id="postpagefoot" class="pager">	                     	                     	
-		                     	 <li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>	                                       
-			                     <c:forEach var="pageNum" begin="1" end="${postBean.totalPage}">
-			                     	<c:choose>
-			                     		<c:when test="${pageNum == 1}">
-			                     			<li class="active"><a>${pageNum}</a></li>
-			                     		</c:when>
-			                     		<c:otherwise>
-			                     			<li><a onclick="pagingMyPost(this)" href="javascript:void(0);" name="showPostByPage?page=${pageNum}&publisherMail=<s:property value="#request.checkedUser.mailAddress"/>">${pageNum}</a></li>
-			                     		</c:otherwise>		                     		                     			                     
-			                     	</c:choose>		                     			                     		                     	
-			                     </c:forEach>
-			                     <c:choose>
-		                     		<c:when test="${postBean.currentPage eq postBean.totalPage}">	                     		
-		                     			<li class="disabled"><a href="javascript:void(0);">&raquo;</a></li>	
-		                     		</c:when>
-		                     		<c:otherwise>
-		                     			<li><a onclick="pagingMyPost(this)" href="javascript:void(0);" name="showPostByPage?page=${pageBean.currentPage+1}&publisherMail=<s:property value="#request.checkedUser.mailAddress"/>">&raquo;</a></li>			                     		
-		                     		</c:otherwise>
-		                     	</c:choose>	                        		                      	   
-							</ul>													 
-	                    </s:else>
-	                    	                	                                
+		                 
+	                    <h4>未发表任何帖子。</h4>   
+	                        	                                
 	                    </div>
 						<div class="alert1"></div>  
-	                    <div role="tabpanel" class="tab-pane" id="myCollection">
-	                     <s:if test='#request.pageBean.list.size()==0'>
-	                    	  <h4>留言板空空如也。</h4>         
-	                    </s:if>
-	                    <s:else>
-	                    	<s:iterator value="#request.pageBean.list" var="message">
-		                    	<div class="art-row">	                           
-		                            <h4><a class="title">${message.content} </a></h4>	                          
-		                             <a href="http://localhost:8080/BBS_Forum/chaeckUserByUrl?mailAddress=<s:property value="publisherMail.mailAddress"/>"  class="author">
-		                             <i class="fa fa-user"></i>&nbsp;<span>${message.publisherMail.username}</span></a> <a  class="time"><i class="fa fa-clock-o"></i>&nbsp;<span><s:date name="publishDate" format="yyyy-MM-dd HH:mm" /></span></a> 	                          	                            	
-		                        </div>	
-	                     	</s:iterator>
-	                     	<input type="hidden" name="receiverMail" value="<s:property value="#request.checkedUser.mailAddress"/>">	                    	
-		                     <!-- 分页标签的显示 -->
-		                     <ul id="pagefoot" class="pager">	                     	                     	
-		                     	 <li class="disabled"><a href="javascript:void(0);">&laquo;</a></li>	                                       
-			                     <c:forEach var="pageNum" begin="1" end="${pageBean.totalPage}">
-			                     	<c:choose>
-			                     		<c:when test="${pageNum == 1}">
-			                     			<li class="active"><a>${pageNum}</a></li>
-			                     		</c:when>
-			                     		<c:otherwise>
-			                     			<li><a onclick="paging(this)" href="javascript:void(0);" name="showMessageByPage?page=${pageNum}&receiverMail=<s:property value="#request.checkedUser.mailAddress"/>">${pageNum}</a></li>
-			                     		</c:otherwise>		                     		                     			                     
-			                     	</c:choose>		                     			                     		                     	
-			                     </c:forEach>
-			                     <c:choose>
-		                     		<c:when test="${pageBean.currentPage eq pageBean.totalPage}">	                     		
-		                     			<li class="disabled"><a href="javascript:void(0);">&raquo;</a></li>	
-		                     		</c:when>
-		                     		<c:otherwise>
-		                     			<li><a onclick="paging(this)" href="javascript:void(0);" name="showMessageByPage?page=${pageBean.currentPage+1}&receiverMail=<s:property value="#request.checkedUser.mailAddress"/>">&raquo;</a></li>			                     		
-		                     		</c:otherwise>
-		                     	</c:choose>	                        		                      	   
-							</ul>
-							<!-- 分页结束 -->	                    
-	                    </s:else>		                                        	                 						                 
-	                    </div>	
+	
 	                    
 	                    <div role="tabpanel" class="tab-pane" id="myFriends">
 	                  	  <input type="hidden" name="userMail" value="<s:property value="#request.checkedUser.mailAddress"/>">

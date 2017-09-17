@@ -109,7 +109,7 @@ if (session.getAttribute("username") == null){
     </div>
 </div>
      
-      <jsp:include page="/pages/bottom.jsp"/>
+      <jsp:include page="/pages/foot.jsp"/>
   </body>
   <script type="text/javascript" src="js/jquery.validate.min.js"></script>
   <script type="text/javascript">

@@ -3,7 +3,9 @@ package com.dmego.servlet.front;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,8 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.dmego.bean.postBean;
+import com.dmego.bean.typeBean;
 import com.dmego.bean.userBean;
+import com.dmego.dao.postDao;
+import com.dmego.dao.typeDao;
 import com.dmego.dao.userDao;
+import com.dmego.util.Constants;
+import com.dmego.util.StringUtil;
 /**
  * 
  * @author dmego
@@ -39,7 +47,8 @@ public class userServlet extends HttpServlet {
 			logout(request,response);
 		}
 	}
-
+	
+	
 	/**
 	 * 登出操作
 	 * @param request
@@ -110,10 +119,17 @@ public class userServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		userBean userBean = userdao.checkLogin(username, password);
-		if(userBean != null) {
-			HttpSession session = request.getSession();
+		//--------------------------------------初始化发帖时的版区选择
+		typeDao typedao = new typeDao();
+		List<typeBean> typeList = new ArrayList<typeBean>();
+		typeList = typedao.getAllType();
+		HttpSession session = request.getSession();
+		session.setAttribute("typeList", typeList);
+		//---------------------------------------
+		if(userBean != null) {			
 			session.setAttribute("userBean", userBean);
 			request.setAttribute("userBean", userBean);
+			
 			response.sendRedirect(request.getContextPath()+"/front/index.jsp");
 		}else {
 			response.sendRedirect(request.getContextPath()+"/front/login.jsp?status=1");

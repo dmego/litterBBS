@@ -9,6 +9,18 @@
     <servlet-name>userServlet</servlet-name>
     <url-pattern>/front/userServlet</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <servlet-name>postFServlet</servlet-name>
+    <servlet-class>com.dmego.servlet.front.postFServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>postFServlet</servlet-name>
+    <url-pattern>/front/postFServlet</url-pattern>
+  </servlet-mapping> 
+  
+  
+  
+  
   <servlet>
     <servlet-name>adminServlet</servlet-name>
     <servlet-class>com.dmego.servlet.admin.adminServlet</servlet-class>

@@ -16,6 +16,39 @@ import com.dmego.util.DBUtils;
  *
  */
 public class postDao {
+	
+	//首页初始化帖子
+	public List<postBean> headInitPost() {
+		String sql = "select * from post";
+		Connection conn = null;
+		Statement stat = null;
+		ResultSet rs = null;
+		List<postBean> postList = new ArrayList<postBean>();
+		try {
+			conn = DBUtils.getConn();
+			stat = conn.createStatement();
+			rs =stat.executeQuery(sql);
+			int i = 0;
+			while(rs.next() && i < 10) {				
+					postBean post = null;
+					int postid = rs.getInt("postid");
+					int userid = rs.getInt("userid");
+					int tychid = rs.getInt("tychid");
+					String title = rs.getString("title");
+					String content = rs.getString("content");
+					int replynum = rs.getInt("replynum");
+					String posttime = rs.getString("posttime");
+					post = new postBean(postid, userid, tychid, title, content, replynum, posttime);
+					postList.add(post);
+					i++;								
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBUtils.close(rs, stat, conn);
+		}
+		return postList;
+	}
 
 	//新增帖子	
 	public void addPost(postBean post) {

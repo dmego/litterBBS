@@ -87,10 +87,9 @@
 	                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 	                            ${userBean.username}<b class="caret"></b>
 	                        </a>
-	                        <ul class="dropdown-menu">
-	                            <li><a href="pages/change-info.jsp">个人设置</a></li>
-	                            <li><a href="pages/mypost.jsp?page=1">我的帖子</a></li>
-	                            <li><a href="/publish_post.jsp">我要发帖</a></li>
+	                        <ul class="dropdown-menu">	                            
+	                            <li><a href="">我的信息</a></li>
+	                            <li><a href="">消息中心</a></li>
 	                            <li class="divider"></li>
 	                            <li><a href="${pageContext.request.contextPath}/front/userServlet?method=logout&&status=1">退出登陆</a></li>
 	                        </ul>
@@ -105,12 +104,12 @@
                             ${userBean.username}<b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li ><a href="/manage/notice.jsp">发布公告</a></li>
-			                <li  ><a href="/manage/change-admin.jsp">资料修改</a></li>
-			                <li ><a href="/manage/newpost.jsp">查看新帖</a></li>
-			                <li><a href="manage/bestpost.jsp">精华帖请求</a></li>
-			                <li><a href="/manage/limit.jsp">封锁用户</a></li>
-			                <li><a href="/manage/create_discuss.jsp">创建讨论区</a></li>
+                            <li><a href="">发布公告</a></li>
+			                <li><a href="front/personal.jsp">我的信息</a></li>
+			                <li><a href="">消息中心</a></li>
+			                <li><a href="">精华帖请求</a></li>
+			                <li><a href="">封锁用户</a></li>
+			                <li><a href="">后台管理</a></li>
                             <li class="divider"></li>
                             <li><a href="${pageContext.request.contextPath}/front/userServlet?method=logout&&status=1">退出登陆</a></li>
                         </ul>

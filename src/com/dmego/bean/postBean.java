@@ -8,6 +8,7 @@ public class postBean {
 	private int postid;
 	private int userid;
 	private String username;//发布人名字
+	private String usericon;//发布人头像
 	private int tychid;//所属子版块ID
 	private String tychname; //所属版区
 	private String title;
@@ -35,6 +36,13 @@ public class postBean {
 		this.posttime = posttime;		
 	}
 
+	
+	public String getUsericon() {
+		return usericon;
+	}
+	public void setUsericon(String usericon) {
+		this.usericon = usericon;
+	}
 	public String getTitle() {
 		return title;
 	}

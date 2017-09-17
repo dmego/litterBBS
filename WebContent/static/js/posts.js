@@ -91,7 +91,6 @@ function pagingMyPost(t){
         })
 }
 function update_post(){
-
 		var params = $("#postForm1").serialize();  
 		 $.ajax({  
             url:"updatePost",  
