@@ -11,8 +11,7 @@
              dataType:"json",  
              success:function(data){
             	 $(t).replaceWith("<a href='javascript:void(0);' class='btn btn-warning' onclick='deleShieldUser(this)' " +
-            	 		"name='"+shieldMail+"' style='margin-bottom: 10px'>&nbsp;取消屏蔽</a>");
-            	
+            	 		"name='"+shieldMail+"' style='margin-bottom: 10px'>&nbsp;取消屏蔽</a>");          	
              }
          })
 	}

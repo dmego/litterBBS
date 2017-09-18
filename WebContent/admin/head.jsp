@@ -13,15 +13,15 @@
         <div class="topbar-logo-wrap clearfix">
             <h1 class="topbar-logo none"><a href="" class="navbar-brand">后台管理</a></h1>
             <ul class="navbar-list clearfix">
-                <li><a class="on" href="mainIndex.jsp">首页</a></li>
-                <li><a  target="_blank" href="front/index.jsp">论坛首页</a></li>
+                <li><a class="on" href="#">首页</a></li>
+                <li><a  target="_blank" href="../front/index.jsp">论坛首页</a></li>
             </ul>
         </div>
         <div class="top-info-wrap">
             <ul class="top-info-list clearfix">
 	            <c:if test="${sessionScope.userBean!=null}">
 					<li><a href="${pageContext.request.contextPath }">${sessionScope.userBean.username}&nbsp;管理员</a></li>
-					<li><a target="_parent" href="${pageContext.request.contextPath}//admin/adminServlet?method=updUser&level=${item.level }&userid=${item.userid}">修改信息</a></li>
+					<li><a href="#">修改信息</a></li>
 					<li><a target="_parent" href="${pageContext.request.contextPath}/admin/adminServlet?method=end&status=1">退出</a></li>
 				</c:if>
 				<c:if test="${sessionScope.userBean==null}">

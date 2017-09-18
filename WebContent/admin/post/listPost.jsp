@@ -28,7 +28,7 @@
 
 	<div class="crumb-wrap">
 		<div class="crumb-list">
-			<i class="icon-font"></i><a href="mainIndex.jsp">首页</a>
+			<i class="icon-font"></i><a href="../mainIndex.jsp">首页</a>
 			<span class="crumb-step">&gt;</span><span class="crumb-name">帖子管理</span>
 		</div>
 	</div>

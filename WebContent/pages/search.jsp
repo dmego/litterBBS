@@ -10,10 +10,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <base href="<%=basePath%>">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<script type="text/javascript" src="static/js/jquery.min.js"></script>
-<script type="text/javascript" src="static/js/search.js">
+<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/static/js/search.js">
 </script>
-<link rel="stylesheet" type="text/css" href="static/css/search.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/css/search.css">
 <!--  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
     <title>搜索框</title>
 	<meta http-equiv="pragma" content="no-cache">
@@ -108,3 +108,4 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </body>
   
 </html>
+

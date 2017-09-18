@@ -17,6 +17,7 @@ import com.dmego.bean.postBean;
 import com.dmego.bean.typeBean;
 import com.dmego.bean.userBean;
 import com.dmego.dao.postDao;
+import com.dmego.dao.typeChildDao;
 import com.dmego.dao.typeDao;
 import com.dmego.dao.userDao;
 import com.dmego.util.Constants;
@@ -45,10 +46,54 @@ public class userServlet extends HttpServlet {
 			regist(request,response);
 		}else if("logout".equals(method)) {
 			logout(request,response);
+		}else if("showUser".equals(method)) {
+			showUser(request,response);
+		}else if("personal".equals(method)) {
+			personal(request,response);
 		}
 	}
 	
 	
+	//在个人信息页面查看发过的帖子
+	private void personal(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		userDao userdao = new userDao();
+		postDao postdao = new postDao();
+		typeChildDao tychdao = new typeChildDao();
+		int userid = StringUtil.StrToInt(request.getParameter("userid"));
+		String username = userdao.getUserById(userid).getUsername();
+		List<postBean> userPostList = postdao.getPostByUserId(userid);
+		for(int i= 0; i< userPostList.size();i++) {
+			int tychid = userPostList.get(i).getTychid();
+			String tychname = tychdao.getTypeChildById(tychid).getName();
+			userPostList.get(i).setTychname(tychname);
+			userPostList.get(i).setUsername(username);	
+		}
+		request.setAttribute("userPostList", userPostList);
+		request.getRequestDispatcher("personal.jsp").forward(request, response);
+	}
+
+
+
+	//查看其它人的个人信息
+	private void showUser(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		userDao userdao = new userDao();
+		int userid = StringUtil.StrToInt(request.getParameter("userid"));
+		userBean userBean = userdao.getUserById(userid);
+		request.setAttribute("userBean", userBean);
+		request.getRequestDispatcher("personal.jsp").forward(request, response);
+	}
+
+
+
+
 	/**
 	 * 登出操作
 	 * @param request
@@ -56,7 +101,8 @@ public class userServlet extends HttpServlet {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	private void logout(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException{
 		// TODO Auto-generated method stub
 		// 解决乱码问题
 		request.setCharacterEncoding("utf-8");

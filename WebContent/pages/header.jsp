@@ -49,7 +49,7 @@
 								List<typeBean> typeList = typedao.getAllType();
 								for(int i = 0; i < typeList.size();i++){
 							%>
-							<li><a href="checkPostByUrl?bid=<%=typeList.get(i).getTypeid()%>"><%=typeList.get(i).getName()%></a></li>
+							<li><a href="#"><%=typeList.get(i).getName()%></a></li>
 							<li class='divider'></li>
 							<%		
 								}
@@ -88,8 +88,8 @@
 	                            ${userBean.username}<b class="caret"></b>
 	                        </a>
 	                        <ul class="dropdown-menu">	                            
-	                            <li><a href="front/personal.jsp">我的信息</a></li>
-	                            <li><a href="">消息中心</a></li>
+	                            <li><a href="${pageContext.request.contextPath}/front/userServlet?method=personal&userid=${userBean.userid}">我的信息</a></li>
+	                            <li><a href="#">消息中心</a></li>
 	                            <li class="divider"></li>
 	                            <li><a href="${pageContext.request.contextPath}/front/userServlet?method=logout&&status=1">退出登陆</a></li>
 	                        </ul>
@@ -104,12 +104,11 @@
                             ${userBean.username}<b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="">发布公告</a></li>
-			                <li><a href="front/personal.jsp">我的信息</a></li>
-			                <li><a href="">消息中心</a></li>
-			                <li><a href="">精华帖请求</a></li>
-			                <li><a href="">封锁用户</a></li>
-			                <li><a href="">后台管理</a></li>
+                            <li><a href="#">发布公告</a></li>
+			                <li><a href="${pageContext.request.contextPath}/front/userServlet?method=personal&userid=${userBean.userid}">我的信息</a></li>
+			                <li><a href="#">消息中心</a></li>
+			                <li><a href="#">精华帖请求</a></li>
+			                <li><a href="admin/main.jsp">后台管理</a></li>
                             <li class="divider"></li>
                             <li><a href="${pageContext.request.contextPath}/front/userServlet?method=logout&&status=1">退出登陆</a></li>
                         </ul>

@@ -79,7 +79,9 @@
 										int userid = headPostList.get(i).getUserid();
 										int tychid = headPostList.get(i).getTychid();
 										String username = userdao.getUserById(userid).getUsername();
+										
 										String tychname = tychdao.getTypeChildById(tychid).getName();
+										
 										String usericon = userdao.getUserById(userid).getUsericon();
 										headPostList.get(i).setUsername(username);
 										headPostList.get(i).setTychname(tychname);	
@@ -101,7 +103,7 @@
 											</div>
 											<div class="comment-bt">
 												<span class="label" style="background-color: #afafaf;"><a
-											href="checkZiPostByUrl?cid=7">${item.tychname}</a></span> • <strong><a
+											href="">${item.tychname}</a></span> • <strong><a
 											href="${pageContext.request.contextPath}/front/userServlet?userid=${item.userid}">${item.username}</a></strong> • <span>${item.posttime}</span>
 											</div>
 										</div>
@@ -127,7 +129,7 @@
 								<div class="row">
 									<div class="profile-sidebar">
 										<div class="profile-sidebar-item profile-avatar">
-											<a href="front/personal.jsp"> 
+											<a href="${pageContext.request.contextPath}/front/userServlet?method=personal&userid=${userBean.userid}"> 
 												<img src="${userBean.usericon }" alt="个人头像" class="avatar avatar-lg img-circle">
 											</a>
 										</div>
