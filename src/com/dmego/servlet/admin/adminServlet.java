@@ -55,7 +55,8 @@ public class adminServlet extends HttpServlet {
 	 * @param request
 	 * @param response
 	 */
-	private void listUser(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+	private void listUser(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//解决乱码问题
 		request.setCharacterEncoding("UTF-8");
